@@ -1,4 +1,5 @@
-// lexer/lexer_test.go
+// lexer/lexer.go
+
 package lexer
 
 import (
@@ -6,8 +7,8 @@ import (
 	"monkey/token"
 )
 
-func TestNextToken(t *testing.T){
-	input := `S=+(){},;`
+func TestNextToken(t *testing.T) {
+	input := `=+(){},;`
 
 	tests := []struct {
 		expectedType token.TokenType
@@ -15,8 +16,8 @@ func TestNextToken(t *testing.T){
 	}{
 		{token.ASSIGN, "="},
 		{token.PLUS, "+"},
-		{token.LPARAN, "("},
-		{token.RPARAN, ")"},
+		{token.LPAREN, "("},
+		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
 		{token.RBRACE, "}"},
 		{token.COMMA, ","},
@@ -30,11 +31,13 @@ func TestNextToken(t *testing.T){
 		tok := l.NextToken()
 
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] -tokentype wrong. expected=%q, got=%q", i, tt.expectedType, tok.Type)
+			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
+				i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] -literal wrong. expected=%q, got=%q", i, tt.expectedLiteral, tok.expectedLiteral)
+			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
