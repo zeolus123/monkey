@@ -9,14 +9,13 @@ import (
 
 func TestNextToken(t *testing.T) {
 	input := `let five = 5;
-	let ten = 10;
-	
-	let add = fn(x, y) {
-		x + y;
-	};
+let ten = 10;
 
-	let result = add(five, ten);
-	`
+let add = fn(x, y) {
+  x + y;
+};
+
+let result = add(five, ten);`
 
 	tests := []struct {
 		expectedType token.TokenType
@@ -49,6 +48,8 @@ func TestNextToken(t *testing.T) {
 		{token.RBRACE, "}"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
+		{token.IDENT, "result"},
+		{token.ASSIGN, "="},
 		{token.IDENT, "add"},
 		{token.LPAREN, "("},
 		{token.IDENT, "five"},
@@ -56,7 +57,6 @@ func TestNextToken(t *testing.T) {
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
-		{token.EOF, ""},
 	}
 
 	l := New(input)
